@@ -18,10 +18,23 @@ services:
       context: ./collector
       dockerfile: Dockerfile
     container_name: weather_collector
-    env_file:
-      - ./collector/.env
     environment:
-      RABBITMQ_URL: amqp://guest:guest@rabbitmq/
+      - RABBITMQ_URL=${RABBITMQ_URL}
+      - API_KEY=${API_KEY} 
+    depends_on:
+      - rabbitmq
+    networks:
+      - appnet
+    restart: unless-stopped
+  
+  go-worker:
+    build:
+      context: ./go-worker
+      dockerfile: Dockerfile
+    container_name: go-worker
+    environment:
+    - RABBITMQ_URL=${RABBITMQ_URL}  
+    - API_URL=${API_URL}
     depends_on:
       - rabbitmq
     networks:
