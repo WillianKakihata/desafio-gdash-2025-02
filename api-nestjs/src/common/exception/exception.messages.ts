@@ -13,13 +13,14 @@ export const ExceptionMessage = {
         ARRAY_DOCUMENTS_TO_MODEL_OUT: 'Error convert documentUser to ArrayModelOut!',
         DOCUMENT_TO_MODEL_OUT: 'Error convert documentUser to ModelOut!', 
         UPDATE_REQUEST_TO_UPDATE_MODEL: 'Error convert updateRequest to UpdateUserModelIn',
-        SIGNUP_REQUEST_TO_MODEL_IN: 'Error covert SignUpRequest to CreateUserModelIn'
+        SIGNUP_REQUEST_TO_MODEL_IN: 'Error convert SignUpRequest to CreateUserModelIn'
     }
   },
 
   BCRYPT: {
     PASS_HASH: 'Error pass bcrypt hash'
   },
+
   AUTH: {
    SIGNUP: {
       ALREADY_EXISTS: 'User already exists!',
@@ -36,5 +37,20 @@ export const ExceptionMessage = {
     SIGNIN: {
       PASSWORD_MISMATCH: 'Passwords do not match!',
     }
+  },
+
+  WEATHER: {
+    CREATE: 'Error in save weather',
+    FIND_ALL: 'Error getting all weathers!',
+    MAPPER: {
+      ARRAY_DOCUMENTS_TO_MODEL_OUT: 'Error convert All Documents Weather to WeatherArrayModelOut!',
+      CREATE: 'Error convert documentWeather to ModelOut!'
+    }
+  },
+
+  OPENROUTER: {
+    GENERIC: 'Failed to generate weather insights.',
+    RESPONSE: 'Invalid response from OpenRouter API.',
+    NOT_DATA: 'No weather records provided. Cannot generate insights.'
   }
 }

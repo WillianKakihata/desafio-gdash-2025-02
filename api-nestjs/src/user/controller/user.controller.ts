@@ -14,7 +14,6 @@ export class UserController {
   ) {}
 
   @Post()
-
   public async createUser(
     @Body() user: CreateUserRequest
   ): Promise<UserResponseModelOut> {

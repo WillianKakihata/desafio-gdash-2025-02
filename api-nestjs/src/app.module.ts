@@ -5,6 +5,8 @@ import { CustomConfigModule } from './common/modules/custom.config.module';
 import { CustomConfigService } from './common/modules/custom.config.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { WeatherModule } from './weather/weather.module';
+import { OpenRouterModule } from './openrouter/openrouter.module';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { AuthModule } from './auth/auth.module';
         uri: configService.get<string>('MONGODB_URI'),
       }),
     }),
-    UserModule, AuthModule,
+    UserModule, AuthModule,WeatherModule,OpenRouterModule
   ],
   controllers: [],
   providers: [],
