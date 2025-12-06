@@ -2,17 +2,17 @@ import { IsDate, IsNumber, IsString } from "class-validator";
 
 export class WeatherLogRequest {
   @IsNumber({}, {message: 'The temperature value must be numeric.'})
-  Temperatura : number;
+  temperatura : number;
 
   @IsNumber({}, {message: 'The humidity value must be numeric.'})
-  Umidade: number;
+  umidade: number;
 
   @IsNumber({}, {message: 'The wind value must be numeric.'})
-  Vento: number;
+  vento: number;
 
   @IsString({message: 'The condition must be a string.'})
-  Condicao: string;
+  condicao: string;
   
   @IsNumber({}, {message: 'The rain value must be numeric.'})
-  Chuva: number;
+  chuva: number;
 }

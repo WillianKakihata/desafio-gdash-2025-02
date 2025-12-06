@@ -6,10 +6,11 @@ import { UserPersistence } from './persistence/user.persistence';
 import { AUTH_GUARD, AuthGuard } from 'src/common/guards/auth.guard';
 import { UserController } from './controller/user.controller';
 import { CustomConfigModule } from 'src/common/modules/custom.config.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
-    CustomConfigModule,
+    CustomConfigModule, HttpModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])
   ],
   controllers: [UserController],

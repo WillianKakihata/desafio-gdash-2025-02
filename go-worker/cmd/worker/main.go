@@ -16,6 +16,6 @@ func main() {
 
 	cfg := config.Load()
 	log.Println("Iniciando worker...")
-
 	queue.StartWorker(cfg.RabbitURL, "weather", cfg.APIURL)
+
 }

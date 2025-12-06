@@ -24,6 +24,7 @@ export class SignUpRequest {
     )
     password: string;
 
+    @IsNotEmpty()
     @Matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
     {
@@ -32,4 +33,8 @@ export class SignUpRequest {
     },
     )
     confirmPassword: string
+
+    @IsNotEmpty()
+    @IsString()
+    city: string
 }

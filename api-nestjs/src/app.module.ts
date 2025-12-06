@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { WeatherModule } from './weather/weather.module';
 import { OpenRouterModule } from './openrouter/openrouter.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { OpenRouterModule } from './openrouter/openrouter.module';
         uri: configService.get<string>('MONGODB_URI'),
       }),
     }),
-    UserModule, AuthModule,WeatherModule,OpenRouterModule
+    UserModule, AuthModule,WeatherModule,OpenRouterModule, HttpModule
   ],
   controllers: [],
   providers: [],

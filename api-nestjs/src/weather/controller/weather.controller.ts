@@ -22,6 +22,7 @@ export class WeatherController {
     @Body()
     log: WeatherLogRequest
   ): Promise<WeatherLogModelOut> {
+    console.log('Recebendo log:', log, 'do user:', sub);
     const logModelIn = WeatherMapper.createWeatherRequestToWeatherModelIn(log)
     return await this.weatherService.saveWeather(logModelIn, sub);
   }

@@ -4,6 +4,7 @@ constructor(
     public readonly username: string, 
     public readonly email: string, 
     public password: string,
-    public readonly confirmPassword: string
+    public readonly confirmPassword: string,
+    public readonly city: string,
 ) {}
 }

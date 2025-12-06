@@ -2,12 +2,14 @@ import {
   IsDate,
   IsEmail,
   IsEnum,
+  IsNotEmpty,
   IsString,
   Matches,
   MinLength,
 } from 'class-validator';
 
 export class CreateUserRequest {
+  @IsNotEmpty()
   @IsString({ message: 'First name must be a string' })
   @Matches(/^[A-Za-záéíóúãõâêîôûàèìòùçÁÉÍÓÚÃÕÂÊÎÔÛÀÈÌÒÙÇ]+$/, {
     message:
@@ -16,7 +18,7 @@ export class CreateUserRequest {
   @MinLength(2, { message: 'name must be at least 5 characters long' })
   name: string;
 
-
+  @IsNotEmpty()
   @IsString({ message: 'User name must be a string' })
   @Matches(/^[A-Za-z0-9_]+$/, {
     message:
@@ -25,10 +27,12 @@ export class CreateUserRequest {
   @MinLength(2, { message: 'User name must be at least 2 characters long' })
   username: string;
 
+  @IsNotEmpty()
   @IsString({ message: 'Email must be a string' })
   @IsEmail({}, { message: 'Email must be a valid email address' })
   email: string;
 
+  @IsNotEmpty()
   @IsString()
   @Matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
@@ -39,6 +43,7 @@ export class CreateUserRequest {
   )
   password: string;
 
+  @IsNotEmpty()
   @IsString()
   @Matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
@@ -48,4 +53,8 @@ export class CreateUserRequest {
     },
   )
   confirmPassword: string
+
+  @IsNotEmpty()
+  @IsString()
+  city: string
 }

@@ -33,4 +33,8 @@ export class UpdateUserRequest {
   @IsOptional()
   email: string;
 
+  @IsString({ message: 'City name must be a string' })
+  @IsOptional()
+  city: string;
+
 }

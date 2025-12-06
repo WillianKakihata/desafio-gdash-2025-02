@@ -60,7 +60,8 @@ export class AuthService implements AuthServiceInterface {
         const payload = {
             sub: newUser.id,
             username: newUser.username,
-            email: newUser.email
+            email: newUser.email,
+            city: newUser.city
         }
         let access_token: string;
 
@@ -73,6 +74,10 @@ export class AuthService implements AuthServiceInterface {
         return {
             access_token
         }
+    }
+    
+    public async generateToken(userId: string): Promise<string> {
+        return this.jwtService.sign({ sub: userId }, { expiresIn: '30d' });
     }
 
 

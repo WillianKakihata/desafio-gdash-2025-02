@@ -14,7 +14,7 @@ export class WeatherService implements WeatherServiceInterface {
     constructor(
         @Inject('WeatherPersistenceInterface') 
         private readonly weatherPersistence: WeatherPersistenceInterface,
-        private readonly openrouter: OpenRouterService
+        private readonly openrouter: OpenRouterService,
     ){}
     public async saveWeather(newWeather: WeatherLogModelIn, id: string): Promise<WeatherLogModelOut> {
         newWeather.sub = id;

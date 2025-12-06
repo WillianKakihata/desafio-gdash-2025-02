@@ -9,6 +9,7 @@ export const ExceptionMessage = {
     UPDATE: 'Error updating user by id!',
     UPDATE_PASSWORD: 'Error updating user password by id!',
     UPDATE_INVALID_PAYLOAD: 'Error invalid payload!',
+    CITY_INVALID: 'City is not valid!',
     MAPPER: {
         ARRAY_DOCUMENTS_TO_MODEL_OUT: 'Error convert documentUser to ArrayModelOut!',
         DOCUMENT_TO_MODEL_OUT: 'Error convert documentUser to ModelOut!', 

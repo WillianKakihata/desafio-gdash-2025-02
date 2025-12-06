@@ -8,13 +8,15 @@ import { ExceptionMessage } from "src/common/exception/exception.messages";
 import { UserMapper } from "../dto/user.mapper";
 import * as bcrypt from 'bcryptjs';
 import { CustomConfigService } from "src/common/modules/custom.config.service";
+import { HttpService } from "@nestjs/axios";
 
 @Injectable()
 export class UserService implements UserServiceInterface {
     constructor(
         @Inject('UserPersistenceInterface')
         private readonly UserPersistence: UserPersistenceInterface,
-        private readonly config: CustomConfigService
+        private readonly config: CustomConfigService,
+        private readonly http: HttpService
     ) {}
     public async create(NewUser: CreateUserModelIn): Promise<UserResponseModelOut> {
       if (NewUser.password !== NewUser.confirmPassword) {
@@ -46,6 +48,12 @@ export class UserService implements UserServiceInterface {
         throw new InternalServerErrorException(ExceptionMessage.BCRYPT.PASS_HASH);
       }
 
+
+      if (!await this.validarCidade(NewUser.city)) {
+        throw new BadRequestException(ExceptionMessage.USERS.CITY_INVALID)
+      }
+
+
       const userDocument = await this.UserPersistence.saveUser(NewUser);
       return UserMapper.userDocumentToUserModelOut(userDocument);
   
@@ -61,6 +69,11 @@ export class UserService implements UserServiceInterface {
         'email',
         updateModelIn.email ?? '',
         );
+        if (updateModelIn.city) {
+            if (!await this.validarCidade(updateModelIn.city)) {
+                throw new BadRequestException(ExceptionMessage.USERS.CITY_INVALID)
+            }
+        }
 
         if (usernameAlreadyExists && usernameAlreadyExists._id.toString() != userId) {
             throw new BadRequestException(
@@ -83,6 +96,7 @@ export class UserService implements UserServiceInterface {
             oldUser.name = updateModelIn.name ?? oldUser.name;
             oldUser.username = updateModelIn.username ?? oldUser.username;
             oldUser.email = updateModelIn.email ?? oldUser.email;
+            oldUser.city = updateModelIn.city ?? oldUser.city;
         } catch {
             throw new BadRequestException(
                 ExceptionMessage.USERS.UPDATE_INVALID_PAYLOAD,
@@ -122,6 +136,17 @@ export class UserService implements UserServiceInterface {
     
     public async deleteUserById(id: string): Promise<void> {
         await this.UserPersistence.deleteUserById(id);
+    }
+
+    private async validarCidade(cidade: string): Promise<boolean> {
+        const api =this.config.get<string>('API_KEY')
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${api}`;
+        try {
+            await this.http.get(url).toPromise();
+            return true;
+        } catch {
+            return false;
+        }
     }
 
 }

@@ -57,11 +57,11 @@ export class WeatherMapper {
       ): WeatherLogModelIn {
         try {
           return new WeatherLogModelIn({
-            Temperatura: request.Temperatura,
-            Umidade: request.Umidade,
-            Vento: request.Vento,
-            Condicao: request.Condicao,
-            Chuva: request.Chuva,
+            Temperatura: request.temperatura,
+            Umidade: request.umidade,
+            Vento: request.vento,
+            Condicao: request.condicao,
+            Chuva: request.chuva,
           });
         } catch {
           throw new InternalServerErrorException(

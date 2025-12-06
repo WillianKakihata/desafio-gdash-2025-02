@@ -18,7 +18,8 @@ export class UserMapper {
         request.username,
         request.email,
         request.password,
-        request.confirmPassword
+        request.confirmPassword,
+        request.city
       );
     } catch {
       throw new InternalServerErrorException(
@@ -36,6 +37,7 @@ export class UserMapper {
         request.name,
         request.username,
         request.email,
+        request.city
       );
     } catch {
       throw new InternalServerErrorException(
@@ -53,6 +55,7 @@ export class UserMapper {
         name: document.name,
         username: document.username,
         email: document.email,
+        city: document.city
 
       });
     } catch {
@@ -77,6 +80,7 @@ export class UserMapper {
             name: document.name,
             username: document.username,
             email: document.email,
+            city: document.city
           }),
         );
       });

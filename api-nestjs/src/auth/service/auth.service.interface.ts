@@ -5,4 +5,5 @@ import { TokenResponseModelOut } from "../dto/out/token.response.model.out";
 export interface AuthServiceInterface {
     signIn(field: SignInUserModelIn): Promise<TokenResponseModelOut>
     signUp(body: SignUpUserModelIn): Promise<TokenResponseModelOut>
+    generateToken(userId: string): Promise<string>
 }
