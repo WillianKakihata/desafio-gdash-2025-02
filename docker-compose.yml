@@ -1,9 +1,6 @@
-version: "3.9"
-
 services:
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -13,17 +10,78 @@ services:
     networks:
       - appnet
 
+  mongodb:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - appnet
+    restart: unless-stopped
+
+  nestjs:
+    build:
+      context: ./api-nestjs
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - RABBITMQ_URL=${RABBITMQ_URL}
+      - BCRYPT_ROUNDS=${BCRYPT_ROUNDS}
+      - MONGODB_URI=${MONGODB_URI}
+      - PORT=${PORT}
+      - API_KEY=${API_KEY}
+    depends_on:
+      - rabbitmq
+      - mongodb
+      - collector
+    networks:
+      - appnet
+    restart: unless-stopped
+
   collector:
     build:
       context: ./collector
       dockerfile: Dockerfile
-    container_name: weather_collector
-    env_file:
-      - ./collector/.env
+    ports:
+      - "8081:8081"
     environment:
-      RABBITMQ_URL: amqp://guest:guest@rabbitmq/
+      - RABBITMQ_URL=${RABBITMQ_URL}
+      - API_KEY=${API_KEY}
     depends_on:
       - rabbitmq
+    networks:
+      - appnet
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - nestjs
+    networks:
+      - appnet
+    restart: unless-stopped
+
+  go-worker:
+    build:
+      context: ./go-worker
+      dockerfile: Dockerfile
+    environment:
+      - RABBITMQ_URL=${RABBITMQ_URL}
+      - API_URL=${API_URL}
+    depends_on:
+      - rabbitmq
+      - nestjs
     networks:
       - appnet
     restart: unless-stopped
@@ -31,3 +89,6 @@ services:
 networks:
   appnet:
     driver: bridge
+
+volumes:
+  mongo-data:

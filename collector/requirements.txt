@@ -2,3 +2,6 @@ requests
 pika
 schedule
 python-dotenv
+Flask
+PyJWT
+flask-cors
