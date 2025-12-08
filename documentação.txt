@@ -1,0 +1,26 @@
+- faça um git clone
+- adicione um .env
+# RABBIT
+RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+
+# API_BACKEND para frontend
+API_URL=http://nestjs:8080/api/weather/logs
+VITE_API_BACK_FRONT=http://nestjs:8080
+
+# API_WEATHER_KEY
+API_KEY=6bb1817b9771f65556e483daec9c78db
+
+# LLM
+OPENROUTER_API_KEY=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
+
+# JWT
+JWT_SECRET=fc4d91098368ad099163c5704f1ec5f9bffa02248f241f105c1c844cad3f8c25
+BCRYPT_ROUNDS=10
+
+# MONGO DB
+MONGODB_URI=mongodb://root:example@mongodb:27017/gdash-weather-api?authSource=admin
+
+# SERVER
+PORT=8080
+
+-faça docker-compose up --build
