@@ -40,7 +40,8 @@ export class AuthService implements AuthServiceInterface {
         const payload = {
             sub: user.id,
             username: user.username,
-            email: user.email
+            email: user.email,
+            city: user.city
         }
         let access_token: string;
 

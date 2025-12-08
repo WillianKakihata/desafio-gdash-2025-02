@@ -4,4 +4,4 @@ schedule
 python-dotenv
 Flask
 PyJWT
-urllib
+flask-cors

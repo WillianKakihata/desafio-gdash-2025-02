@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import schedule, time, threading, json, requests, pika, os, jwt, urllib.parse
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -9,6 +10,18 @@ RABBITMQ_URL = os.getenv("RABBITMQ_URL")
 JWT_SECRET = os.getenv("JWT_SECRET")
 
 app = Flask(__name__)
+CORS(app)
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    return response
+
+@app.route('/registrar-coleta', methods=['OPTIONS'])
+def registrar_options():
+    return '', 200
 
 jobs = {}
 
