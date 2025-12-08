@@ -61,6 +61,9 @@ def coletar(cidade, user_id, token):
 
 @app.post("/registrar-coleta")
 def registrar():
+    print("Headers recebidos:", request.headers)
+    print("Body recebido:", request.data)
+    print("JSON parseado:", request.json)
     try:
         token = request.json["token"]
 
@@ -100,4 +103,4 @@ threading.Thread(target=loop_scheduler, daemon=True).start()
 
 
 if __name__ == "__main__":
-    app.run(port=8081)
+     app.run(host="0.0.0.0", port=8081)
